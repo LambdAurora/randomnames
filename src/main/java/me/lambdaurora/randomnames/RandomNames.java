@@ -129,11 +129,6 @@ public class RandomNames
 			}).collect(Collectors.toList());
 	}
 
-	public static List<String> getRandomNameByGender(List<List<String>> names, char gender)
-	{
-		return getRandomName(filterByGender(names, gender));
-	}
-
 	public static void printResult(List<String> line)
 	{
 		println("Result: " + line.get(0) + " (Origin: " + line.get(2) + ", gender: " + line.get(1) + ")");
