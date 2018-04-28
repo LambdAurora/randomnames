@@ -1,0 +1,36 @@
+group = 'me.lambdaurora'
+version = '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 10
+mainClassName = 'me.lambdaurora.randomnames.RandomNames'
+
+repositories {
+    maven { url = 'https://aperlambda.github.io/maven' }
+    mavenCentral()
+}
+
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
+dependencies {
+    compile 'org.aperlambda:lambdajcommon:1.4.4'
+}
+
+jar {
+    manifest {
+        attributes("Implementation-Version": version,
+        "Main-Class": mainClassName)
+    }
+
+    dependsOn configurations.runtime
+    from {
+        (configurations.runtime - configurations.provided).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
